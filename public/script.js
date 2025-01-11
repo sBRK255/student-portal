@@ -69,4 +69,11 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html';
         }
     }
+    const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark');
+});
+
 });
