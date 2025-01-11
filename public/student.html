@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Page</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Theme toggle button */
+        #theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #theme-toggle:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Main content */
+        .content {
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        /* Profile section */
+        .profile {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .profile h2 {
+            font-size: 1.8rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .profile p {
+            font-size: 1.2rem;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .profile a {
+            font-size: 1.1rem;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .profile a:hover {
+            color: #0056b3;
+        }
+
+        /* Logout button */
+        #logout {
+            display: inline-block;
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #logout:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+
+        /* Themes */
+        /* Light Theme */
+        body.light {
+            background: linear-gradient(to right, #ffffff, #f8f9fa);
+            color: #333;
+        }
+
+        /* Dark Theme */
+        body.dark {
+            background: linear-gradient(to right, #343a40, #212529);
+            color: #f8f9fa;
+        }
+
+        .profile.dark {
+            background: #212529;
+            color: #f8f9fa;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile.dark p {
+            color: #f8f9fa;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Theme toggle button -->
+    <button id="theme-toggle">🌙 Toggle Theme</button>
+
+    <!-- Main content -->
+    <div class="content">
+        <h1>Welcome, <span id="username">Student</span></h1>
+
+        <!-- Profile Section -->
+        <div class="profile">
+            <h2>University Profile</h2>
+            <p><strong>University Name:</strong> Dar es Salaam Institute of Technology (DIT)</p>
+            <p><strong>Location:</strong> Dar es Salaam, Tanzania</p>
+            <p><strong>Established:</strong> 1997</p>
+            <p><strong>Contact:</strong> info@dit.ac.tz</p>
+            <a href="http://www.dit.ac.tz" target="_blank">Visit University Website</a>
+        </div>
+
+        <!-- Logout Section -->
+        <a href="#" id="logout">Logout</a>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Persist theme preference across page reloads
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark');
+        } else {
+            body.classList.add('light');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark')) {
+                body.classList.replace('dark', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.replace('light', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Simulate fetching and setting username
+        const usernameSpan = document.getElementById('username');
+        // You can replace this with an actual API call to get the student's name
+        const storedUsername = localStorage.getItem('username') || "Student";
+        usernameSpan.textContent = storedUsername;
+
+        // Logout functionality
+        const logoutButton = document.getElementById('logout');
+        logoutButton.addEventListener('click', () => {
+            localStorage.removeItem('username');
+            localStorage.removeItem('token'); // remove token if used for authentication
+            window.location.href = 'login.html'; // redirect to login page after logout
+        });
+    </script>
+</body>
+</html>
